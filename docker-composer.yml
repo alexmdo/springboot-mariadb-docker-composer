@@ -1,0 +1,21 @@
+# Use root/example as user/password credentials
+version: '3.1'
+
+services:
+  app:
+    image: alexmdo/springboot-mariadb-docker-composer:latest
+#    container_name: app
+    depends_on:
+      - db
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:mariadb://db:3306/springboot
+    ports:
+      - 8080:8080
+  db:
+    image: mariadb
+#    container_name: mariadb
+    restart: always
+    environment:
+      MARIADB_ROOT_PASSWORD: mariadbpw
+    ports:
+      - 3306:3306
